@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Lineto';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('./lineto-circular-book.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Lineto';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('./lineto-circular-black.ttf') format('woff');
+}
+
+@font-face {
+  font-family: 'Lineto';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('./lineto-circular-bold.ttf') format('woff');
+}
+
+@font-face {
+  font-family: 'Lineto';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('./5ed9cc4f2cbafcdd2394f68d_Circular\ Pro\ Light.otf') format('woff');
+}
+
+@font-face {
+  font-family: 'Lineto';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('./lineto-circular-medium.ttf') format('woff');
+}
