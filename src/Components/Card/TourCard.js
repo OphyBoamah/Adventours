@@ -9,7 +9,7 @@ const TourCard = ({ tour }) => {
         h={108}
         w='100%'
         objectFit='cover'
-        src='https://images.unsplash.com/photo-1501555088652-021faa106b9b?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Nnx8YWR2ZW50dXJlfGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60'
+        src={require(`../../Assets/images/tours/${tour.imageCover}`).default}
       />
       <Box p={3} pos='absolute' left={0} w='80%' top='350px' bg='white'>
         <Text textTransform='uppercase' fontSize='sm'>
