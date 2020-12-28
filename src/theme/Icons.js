@@ -438,7 +438,7 @@ export const Quote = createIcon({
 
 export const Point = createIcon({
   displayName: 'Point',
-  viewBox: '0 0 24 24',
+  viewBox: '0 0 37 52',
   path: (
     <>
       <title>Meeting_Point.ico</title>
@@ -491,7 +491,7 @@ export const Point = createIcon({
 
 export const Moderate = createIcon({
   displayName: 'Moderate',
-  viewBox: '0 0 24 24',
+  viewBox: '0 0 49 42',
   path: (
     <>
       <defs></defs>
@@ -559,7 +559,7 @@ export const Moderate = createIcon({
 
 export const Group = createIcon({
   displayName: 'Group',
-  viewBox: '0 0 24 24',
+  viewBox: '0 0 46 49',
   path: (
     <>
       <title>Group 550</title>
@@ -802,7 +802,7 @@ export const Duration = createIcon({
 
 export const Map = createIcon({
   displayName: 'Map',
-  viewBox: '0 0 24 24',
+  viewBox: '0 0 48 49',
   path: (
     <>
       <defs></defs>
@@ -859,7 +859,7 @@ export const Map = createIcon({
 
 export const Easy = createIcon({
   displayName: 'Difficulty',
-  viewBox: '0 0 24 24',
+  viewBox: '0 0 49 42',
   path: (
     <>
       <defs></defs>

@@ -1,20 +1,18 @@
-import { Box, Container, Grid, Heading, Image } from '@chakra-ui/react';
-import axios from 'axios';
+import {
+  Box,
+  Container,
+  Grid,
+  Heading,
+  Image,
+  Skeleton,
+} from '@chakra-ui/react';
 import TourCard from 'Components/Card/TourCard';
 import SearchAndFilter from 'Components/SearchAndFilter';
 import Layout from 'Container/Layout';
-import React, { useState, useEffect } from 'react';
+import useTours from 'Context/TourContext';
 
 const Tours = () => {
-  const [tourData, setTourData] = useState([]);
-  const fetchData = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_KEY}/tours`);
-    setTourData(res.data.data.data);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const { data, loading } = useTours();
   return (
     <Layout>
       <Box as='header' pos='absolute' top={0}>
@@ -42,11 +40,19 @@ const Tours = () => {
         <SearchAndFilter />
       </Container>
       <Container maxW='6xl' mt={20}>
-        <Grid templateColumns='repeat(3, 1fr)' gap={6}>
-          {tourData.map((tour) => (
-            <TourCard key={tour._id} tour={tour} />
-          ))}
-        </Grid>
+        {loading ? (
+          <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6}>
+            <Skeleton height={90} />
+            <Skeleton height={90} />
+            <Skeleton height={90} />
+          </Grid>
+        ) : (
+          <Grid templateColumns='repeat(3, 1fr)' gap={6}>
+            {data.map((tour) => (
+              <TourCard key={tour._id} tour={tour} />
+            ))}
+          </Grid>
+        )}
       </Container>
     </Layout>
   );

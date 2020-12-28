@@ -5,7 +5,11 @@ import { Calendar, Duration } from 'theme/Icons';
 
 const TourCard = ({ tour }) => {
   return (
-    <Link as={ReachRouter} to={`/tour/${tour.slug}`}>
+    <Link
+      as={ReachRouter}
+      to={{ pathname: `/tour/${tour.slug}`, state: tour._id }}
+      _hover={{ textDecoration: 'none' }}
+    >
       <Box bg='white' rounded='sm' shadow='sm' pos='relative' overflow='hidden'>
         <Image
           h={108}

@@ -10,25 +10,17 @@ import {
   Icon,
   Image,
   Input,
+  Skeleton,
   Text,
 } from '@chakra-ui/react';
 import { BsArrowRightShort } from 'react-icons/bs';
 import { Quote } from 'theme/Icons';
 import TourCard from 'Components/Card/TourCard';
-import axios from 'axios';
+import useTours from 'Context/TourContext';
 
 const Homepage = () => {
-  const [data, setData] = useState([]);
+  const { data, loading } = useTours();
 
-  console.log('data', data);
-  const fetchData = async () => {
-    const res = await axios.get(`${process.env.REACT_APP_API_KEY}/tours`);
-    setData(res.data.data.data);
-  };
-
-  React.useEffect(() => {
-    fetchData();
-  }, []);
   return (
     <Layout>
       <Box as='header' pos='absolute' top={0}>
@@ -106,11 +98,19 @@ const Homepage = () => {
               </Text>
             </Box>
           </Flex>
-          <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6} mt={40}>
-            {data.slice(0, 6).map((tour) => (
-              <TourCard key={tour._id} tour={tour} />
-            ))}
-          </Grid>
+          {loading ? (
+            <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6}>
+              <Skeleton height={90} />
+              <Skeleton height={90} />
+              <Skeleton height={90} />
+            </Grid>
+          ) : (
+            <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6} mt={40}>
+              {data.slice(0, 6).map((tour) => (
+                <TourCard key={tour._id} tour={tour} />
+              ))}
+            </Grid>
+          )}
         </Container>
       </Box>
 

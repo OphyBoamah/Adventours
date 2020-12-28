@@ -7,6 +7,8 @@ const Router = () => {
     <Switch>
       <Route exact path='/' component={Pages.Homepage} />
       <Route exact path='/tours' component={Pages.Tours} />
+      <Route exact path='/signup' component={Pages.Signup} />
+      <Route exact path='/signin' component={Pages.Signin} />
       <Route exact path='/tour/:id' component={Pages.TourDetail} />
     </Switch>
   );
