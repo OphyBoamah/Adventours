@@ -6,13 +6,13 @@ import Router from 'Routes';
 
 const App = () => {
   return (
-    <UserProvider>
-      <TourProvider>
-        <BrowserRouter>
+    <BrowserRouter>
+      <UserProvider>
+        <TourProvider>
           <Router />
-        </BrowserRouter>
-      </TourProvider>
-    </UserProvider>
+        </TourProvider>
+      </UserProvider>
+    </BrowserRouter>
   );
 };
 

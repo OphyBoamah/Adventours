@@ -1,6 +1,7 @@
 import { useToast } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const UserContext = createContext({});
 
@@ -8,6 +9,7 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState({});
   const [token, setToken] = useState('');
   const toast = useToast();
+  const history = useHistory();
 
   console.log('user', user);
 
@@ -29,7 +31,16 @@ export const UserProvider = ({ children }) => {
         localStorage.setItem('token', JSON.stringify(token));
         localStorage.setItem('user', JSON.stringify(result.data.data.user));
       }
-      window.location.pathname = '/';
+      console.log(result);
+      toast({
+        title: 'Success',
+        description: 'Account successfully created',
+        status: 'success',
+        duration: 9000,
+        position: 'top-right',
+      });
+      history.push('/');
+      // window.location.pathname = '/';
     }
   };
   const signin = async (payload) => {
@@ -37,13 +48,23 @@ export const UserProvider = ({ children }) => {
       `${process.env.REACT_APP_API_KEY}/users/login`,
       payload
     );
+
     if (result.status === 200) {
       const token = result.data.token;
       if (token) {
         localStorage.setItem('token', JSON.stringify(token));
         localStorage.setItem('user', JSON.stringify(result.data.data.user));
       }
-      window.location.pathname = '/';
+      toast({
+        title: result.data.status,
+        description: 'Successfully Signed in',
+        status: 'success',
+        duration: 9000,
+        position: 'top-right',
+      });
+      history.push('/');
+      // window.location.pathname = '/';
+      // <Redirect to='/' />;
     }
   };
   const forgotPassword = async (payload) => {
