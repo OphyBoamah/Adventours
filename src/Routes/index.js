@@ -9,6 +9,8 @@ const Router = () => {
       <Route exact path='/tours' component={Pages.Tours} />
       <Route exact path='/signup' component={Pages.Signup} />
       <Route exact path='/signin' component={Pages.Signin} />
+      <Route exact path='/forgotPassword' component={Pages.ForgotPassword} />
+      <Route exact path='/resetPassword' component={Pages.ResetPassword} />
       <Route exact path='/tour/:id' component={Pages.TourDetail} />
     </Switch>
   );
