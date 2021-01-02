@@ -17,6 +17,7 @@ export const UserProvider = ({ children }) => {
     async function loadUserFromCookies() {
       const token = Cookies.get('token');
       console.log(token);
+      console.log(user);
       if (token) {
         console.log("Got a token in the cookies, let's see if it is valid");
         api.defaults.headers.Authorization = `Bearer ${token.token}`;
