@@ -1,22 +1,38 @@
 import { useToast } from '@chakra-ui/react';
-import axios from 'axios';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { api } from 'Utils/api';
+import Cookies from 'js-cookie';
 
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
-  const [token, setToken] = useState();
   const [user, setUser] = useState();
+
+  console.log('user', user);
 
   const toast = useToast();
   const history = useHistory();
+
+  useEffect(() => {
+    async function loadUserFromCookies() {
+      const token = Cookies.get('token');
+      console.log(token);
+      if (token) {
+        console.log("Got a token in the cookies, let's see if it is valid");
+        api.defaults.headers.Authorization = `Bearer ${token.token}`;
+        const user = token;
+        if (user) setUser(token);
+      }
+    }
+    loadUserFromCookies();
+  }, []);
+
   const signin = async (payload) => {
     try {
       const result = await api.post('/users/login', payload);
       if (result.status === 200) {
-        localStorage.setItem('token', JSON.stringify(result.data.token));
-        setUser(result.data.data.user);
+        Cookies.set('token', result.data, { expires: 60 });
+        api.defaults.headers.Authorization = `Bearer ${result.data.token}`;
         toast({
           title: 'Success',
           description: "You're signed into your account.",
@@ -38,18 +54,13 @@ export const UserProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token'));
-    setToken(token);
-  }, []);
-
   const signup = async (payload) => {
     try {
       const result = await api.post('/users/signup', payload);
       setUser(result);
       if (result.status === 201) {
-        setUser(result.data.data.user);
-        localStorage.setItem('token', JSON.stringify(result.data.token));
+        Cookies.set('token', result.data, { expires: 60 });
+        api.defaults.headers.Authorization = `Bearer ${result.data.token}`;
         toast({
           title: 'Success',
           description: "We've created your account.",
@@ -73,14 +84,14 @@ export const UserProvider = ({ children }) => {
   };
 
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    Cookies.remove('token');
+    setUser(null);
+    history.push('/signin');
   };
 
   const forgotPassword = async (payload) => {
     try {
       const result = await api.post('/users/forgotPassword', payload);
-      console.log(result);
 
       if (result.status === 200) {
         toast({
@@ -106,10 +117,9 @@ export const UserProvider = ({ children }) => {
   const resetPassword = async (token, payload) => {
     try {
       const result = await api.patch(`/users/resetPassword/${token}`, payload);
-      console.log(result);
       if (result.status === 200) {
-        setUser(result.data.data.user);
-        localStorage.setItem('token', JSON.stringify(result.data.token));
+        Cookies.set('token', result.data, { expires: 60 });
+        api.defaults.headers.Authorization = `Bearer ${result.data.token}`;
         toast({
           title: result.data.status,
           description: 'Password reset successfully',
@@ -140,7 +150,6 @@ export const UserProvider = ({ children }) => {
       value={{
         isAuthenticated: !!user,
         signin,
-        token,
         user,
         signup,
         logout,

@@ -1,15 +1,15 @@
-import useAuth from 'Context/UserContext';
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const { token } = useAuth();
+  const token = Cookies.get('token');
 
   return (
     <Route
       {...rest}
       render={(props) => {
-        return token ? (
+        return token.token ? (
           <Component />
         ) : (
           <Redirect
