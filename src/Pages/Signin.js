@@ -8,15 +8,17 @@ import {
   Heading,
   Image,
   Input,
+  Link,
+  Text,
 } from '@chakra-ui/react';
 import Layout from 'Container/Layout';
 import useAuth from 'Context/UserContext';
 import { Formik } from 'formik';
 import React from 'react';
+import { Link as ReachLink } from 'react-router-dom';
 
 const Signin = () => {
   const { signin } = useAuth();
-
   const onSubmit = async (
     values,
     { setSubmitting, setErrors, setStatus, resetForm }
@@ -85,6 +87,15 @@ const Signin = () => {
                       onBlur={handleBlur}
                     />
                   </FormControl>
+                  <Link
+                    as={ReachLink}
+                    to='/forgotpassword'
+                    _hover={{ textDecoration: 'none' }}
+                    fontSize='sm'
+                    textAlign='right'
+                  >
+                    <Text>Forgot Password?</Text>
+                  </Link>
                   <Box>
                     <Button
                       colorScheme='orange'

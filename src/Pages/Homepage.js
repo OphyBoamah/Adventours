@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Layout from 'Container/Layout';
 import {
   Box,
@@ -16,11 +16,11 @@ import {
 import { BsArrowRightShort } from 'react-icons/bs';
 import { Quote } from 'theme/Icons';
 import TourCard from 'Components/Card/TourCard';
-import useTours from 'Context/TourContext';
+import useAPI from 'Context/APIContext';
 
 const Homepage = () => {
-  const { data, loading } = useTours();
-
+  const { tours, loading } = useAPI();
+  console.log(tours);
   return (
     <Layout>
       <Box as='header' pos='absolute' top={0}>
@@ -98,15 +98,16 @@ const Homepage = () => {
               </Text>
             </Box>
           </Flex>
+
           {loading ? (
             <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6}>
-              <Skeleton height={90} />
-              <Skeleton height={90} />
-              <Skeleton height={90} />
+              {tours.slice(0, 6).map((tour) => (
+                <Skeleton key={tour._id} height={90} />
+              ))}
             </Grid>
           ) : (
             <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6} mt={40}>
-              {data.slice(0, 6).map((tour) => (
+              {tours.slice(0, 6).map((tour) => (
                 <TourCard key={tour._id} tour={tour} />
               ))}
             </Grid>

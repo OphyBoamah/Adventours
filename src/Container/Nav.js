@@ -17,7 +17,7 @@ const Nav = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { pathname } = useLocation();
   const { user, token, logout } = useAuth();
-  console.log('user', user);
+  console.log(user);
   return (
     <Flex
       align='center'
@@ -44,6 +44,7 @@ const Nav = () => {
             Tours
           </Box>
         </Link>
+
         {!token && (
           <>
             <Link as={NavLink} to='signin' _hover={{ textDecor: 'none' }}>
@@ -67,8 +68,9 @@ const Nav = () => {
             </Link>
           </>
         )}
+
         {token && (
-          <Box as='li' px={8} fontSize='sm' onClick={logout} cursor='pointer'>
+          <Box as='li' px={8} fontSize='sm' cursor='pointer' onClick={logout}>
             Logout
           </Box>
         )}
@@ -81,7 +83,7 @@ const Nav = () => {
               </Text>
               <Avatar
                 size='sm'
-                src={require('../Assets/images/tours/default.jpg').default}
+                src={`require('../Assets/images/tours/${user?.photo}')`.default}
               />
             </Flex>
           </Link>

@@ -11,56 +11,48 @@ import {
 import IconBox from 'Components/IconBox';
 import Review from 'Components/Review';
 import Layout from 'Container/Layout';
-import React, { useState, useEffect } from 'react';
-import { Calendar, Duration, Easy, Group, Map, Point } from 'theme/Icons';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 import moment from 'moment';
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Calendar, Duration, Easy, Group, Map, Point } from 'theme/Icons';
 
 const TourDetail = () => {
-  const [detail, setDetail] = useState({});
   const { location } = useHistory();
-  const id = location.state;
-  const fetchDetail = async () => {
-    const result = await axios.get(
-      `${process.env.REACT_APP_API_KEY}/tours/${id}`
-    );
-    setDetail(result.data.data.data);
-  };
+  const tour = location.state;
+  console.log('tour', tour);
 
   useEffect(() => {
-    fetchDetail();
+    window.scrollTo(0, 0);
   }, []);
-  console.log('detailsData ', detail);
   return (
     <Layout>
       <Container maxW='7xl' mt={40} mb={20}>
         <Flex justify='space-between'>
           <Box w={125}>
             <Text textTransform='uppercase' fontSize='sm'>
-              From Mýrdalsjökull
+              From Adventour
             </Text>
             <Heading as='h3' mt={10} fontSize='6xl'>
-              {detail.name}
+              {tour.name}
             </Heading>
 
             <Flex align='center' mt={20}>
               <Text>
                 Rating:{' '}
                 <Text as='span' color='orange.500'>
-                  {detail.ratingsAverage}
+                  {tour.ratingsAverage}
                 </Text>
               </Text>
               <Text mx={14}>
                 Price from:{' '}
                 <Text as='span' color='orange.500'>
-                  ${detail.price}
+                  ${tour.price}
                 </Text>
               </Text>
               <Text>
                 Start Date:{' '}
                 <Text as='span' color='orange.500'>
-                  {moment(detail?.startDates[0]).format('LL')}
+                  {moment(tour?.startDates[0]).format('LL')}
                 </Text>
               </Text>
             </Flex>
@@ -68,7 +60,8 @@ const TourDetail = () => {
 
           <Box w={80}>
             <Text fontSize='lg' fontWeight={200} lineHeight='tall'>
-              {detail.summary}
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
+              possimus temporibus non nemo repudiandae sed!
             </Text>
             <Button mt={8} colorScheme='orange' w='100%' h={14} rounded='0px'>
               Book Now
@@ -81,13 +74,13 @@ const TourDetail = () => {
           h='80vh'
           w='100vw'
           objectFit='cover'
-          src={require('../Assets/images/tours/tour-1-cover.jpg').default}
+          src={require(`../Assets/images/tours/${tour.imageCover}`).default}
         />
       </Box>
       <Container maxW='4xl' my={32}>
         <Box>
           <Heading as='h3' fontSize='6xl' textAlign='center'>
-            {detail.name}
+            {tour.name}
           </Heading>
           <Box mt={10}>
             <Text
@@ -96,7 +89,7 @@ const TourDetail = () => {
               fontSize='lg'
               textAlign='center'
             >
-              {detail.description}
+              {tour.description}
             </Text>
           </Box>
         </Box>
@@ -107,23 +100,23 @@ const TourDetail = () => {
             <IconBox
               icon={Duration}
               title='Duration'
-              text={`${detail.duration} day tour`}
+              text={`${tour.duration} day tour`}
             />
             <IconBox
               icon={Point}
               title='Meeting Point'
-              text={detail.startLocation.description}
+              text={tour.startLocation.description}
             />
             <IconBox
               icon={Map}
               title='Location'
-              text={detail.startLocation.address}
+              text={tour.startLocation.address}
             />
-            <IconBox icon={Easy} title='Difficulty' text={detail.difficulty} />
+            <IconBox icon={Easy} title='Difficulty' text={tour.difficulty} />
             <IconBox
               icon={Group}
               title='Group Size'
-              text={`Up to ${detail.maxGroupSize} people`}
+              text={`Up to ${tour.maxGroupSize} group size`}
             />
           </Grid>
         </Box>
@@ -133,9 +126,10 @@ const TourDetail = () => {
             Tour Gallery
           </Heading>
           <Grid templateColumns={{ md: 'repeat(4, 1fr)' }} gap={4}>
-            {detail?.images?.map((image) => (
-              <Box key={image} h={108} w={70}>
+            {tour.images.map((image) => (
+              <Box h={108} w={70}>
                 <Image
+                  key={image}
                   h='100%'
                   w='100%'
                   objectFit='cover'

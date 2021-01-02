@@ -7,7 +7,7 @@ const TourCard = ({ tour }) => {
   return (
     <Link
       as={ReachRouter}
-      to={{ pathname: `/tour/${tour.slug}`, state: tour._id }}
+      to={{ pathname: `/tour/${tour.slug}`, state: tour }}
       _hover={{ textDecoration: 'none' }}
     >
       <Box bg='white' rounded='sm' shadow='sm' pos='relative' overflow='hidden'>
@@ -17,11 +17,11 @@ const TourCard = ({ tour }) => {
           objectFit='cover'
           src={require(`../../Assets/images/tours/${tour.imageCover}`).default}
         />
-        <Box p={3} pos='absolute' left={0} w='80%' top='350px' bg='white'>
+        <Box p={3} pos='absolute' left={0} w='80%' top='370px' bg='white'>
           <Text textTransform='uppercase' fontSize='sm'>
             By Adventour
           </Text>
-          <Heading as='h4' fontSize='3xl' isTruncated>
+          <Heading as='h4' fontSize='2xl'>
             {tour.name}
           </Heading>
         </Box>

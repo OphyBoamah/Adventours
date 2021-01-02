@@ -9,10 +9,10 @@ import {
 import TourCard from 'Components/Card/TourCard';
 import SearchAndFilter from 'Components/SearchAndFilter';
 import Layout from 'Container/Layout';
-import useTours from 'Context/TourContext';
+import useAPI from 'Context/APIContext';
 
 const Tours = () => {
-  const { data, loading } = useTours();
+  const { tours, loading } = useAPI();
   return (
     <Layout>
       <Box as='header' pos='absolute' top={0}>
@@ -42,13 +42,13 @@ const Tours = () => {
       <Container maxW='6xl' mt={20}>
         {loading ? (
           <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6}>
-            <Skeleton height={90} />
-            <Skeleton height={90} />
-            <Skeleton height={90} />
+            {tours.slice(0, 6).map((tour) => (
+              <Skeleton key={tour._id} height={90} />
+            ))}
           </Grid>
         ) : (
-          <Grid templateColumns='repeat(3, 1fr)' gap={6}>
-            {data.map((tour) => (
+          <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={6} mt={40}>
+            {tours.map((tour) => (
               <TourCard key={tour._id} tour={tour} />
             ))}
           </Grid>

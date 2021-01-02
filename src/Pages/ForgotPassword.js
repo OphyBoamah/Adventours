@@ -16,7 +16,6 @@ import React from 'react';
 
 const ForgotPassword = () => {
   const { forgotPassword } = useAuth();
-
   const onSubmit = async (
     values,
     { setSubmitting, setErrors, setStatus, resetForm }

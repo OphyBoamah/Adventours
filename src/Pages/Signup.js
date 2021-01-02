@@ -16,7 +16,6 @@ import React from 'react';
 
 const Signup = () => {
   const { signup } = useAuth();
-
   const onSubmit = async (
     values,
     { setSubmitting, setErrors, setStatus, resetForm }

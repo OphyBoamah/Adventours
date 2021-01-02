@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Pages } from 'Pages';
+import ProtectedRoute from './ProtectedRoute';
 
 const Router = () => {
   return (
@@ -11,6 +12,7 @@ const Router = () => {
       <Route exact path='/signin' component={Pages.Signin} />
       <Route exact path='/forgotPassword' component={Pages.ForgotPassword} />
       <Route exact path='/resetPassword' component={Pages.ResetPassword} />
+      <ProtectedRoute exact path='/profile' component={Pages.Profile} />
       <Route exact path='/tour/:id' component={Pages.TourDetail} />
     </Switch>
   );

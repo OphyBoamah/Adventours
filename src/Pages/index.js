@@ -5,6 +5,7 @@ import Signup from './Signup';
 import Signin from './Signin';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
+import Profile from './Profile';
 
 export const Pages = {
   Homepage,
@@ -14,4 +15,5 @@ export const Pages = {
   Signin,
   ForgotPassword,
   ResetPassword,
+  Profile,
 };

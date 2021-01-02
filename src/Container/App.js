@@ -1,5 +1,5 @@
+import { APIProvider } from 'Context/APIContext';
 import { UserProvider } from 'Context/UserContext';
-import { TourProvider } from 'Context/TourContext';
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Router from 'Routes';
@@ -8,9 +8,9 @@ const App = () => {
   return (
     <BrowserRouter>
       <UserProvider>
-        <TourProvider>
+        <APIProvider>
           <Router />
-        </TourProvider>
+        </APIProvider>
       </UserProvider>
     </BrowserRouter>
   );

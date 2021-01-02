@@ -16,14 +16,13 @@ import React from 'react';
 
 const ResetPassword = () => {
   const { resetPassword } = useAuth();
-
   const onSubmit = async (
     values,
     { setSubmitting, setErrors, setStatus, resetForm }
   ) => {
     try {
       resetPassword(
-        'badef314f869bc6c712c88fe7ce23b5d43ad3e9480c54c6629491ecf8439562b',
+        'ef2abf091e1548fcec4bec7580fd30b2117ee93e35911bb8d5a71e2ff4f662c1',
         values
       );
       resetForm({});
