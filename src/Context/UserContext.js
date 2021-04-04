@@ -26,7 +26,7 @@ export const UserProvider = ({ children }) => {
       }
     }
     loadUserFromCookies();
-  }, []);
+  }, [user]);
 
   const signin = async (payload) => {
     try {

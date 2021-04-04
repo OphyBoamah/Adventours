@@ -11,7 +11,7 @@ import React from 'react';
 
 const ManageTours = ({ tab, setState }) => {
   console.log('tab', tab);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box>
       <Flex justify='space-between'>
