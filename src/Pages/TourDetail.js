@@ -25,130 +25,133 @@ const TourDetail = () => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <Layout>
-      <Container maxW='7xl' mt={40} mb={20}>
-        <Flex justify='space-between'>
-          <Box w={125}>
-            <Text textTransform='uppercase' fontSize='sm'>
-              From Adventour
-            </Text>
-            <Heading as='h3' mt={10} fontSize='6xl'>
+      <Layout>
+        <Container maxW='7xl' mt={40} mb={20}>
+          <Flex justify='space-between' direction={{ base: 'column', md: 'row' }}>
+            <Box w={{ md: 125 }}>
+              <Text textTransform='uppercase' fontSize='sm'>
+                From Adventour
+              </Text>
+              <Heading as='h3' mt={10} fontSize={{ base: '4xl', md: '6xl' }}>
+                {tour.name}
+              </Heading>
+
+              <Flex align='center' mt={{ base: 10, md: 20 }}>
+                <Text fontSize={{ base: 'sm', md: 'md' }}>
+                  Rating:{' '}
+                  <Text fontSize='md' as='span' color='orange.500'>
+                    {tour.ratingsAverage}
+                  </Text>
+                </Text>
+                <Text mx={14} fontSize={{ base: 'sm', md: 'md' }}>
+                  Price from:{' '}
+                  <Text fontSize='md' as='span' color='orange.500'>
+                    ${tour.price}
+                  </Text>
+                </Text>
+                <Text fontSize={{ base: 'sm', md: 'md' }}>
+                  Start Date:{' '}
+                  <Text as='span' color='orange.500' fontSize='md'>
+                    {moment(tour?.startDates[0]).format('LL')}
+                  </Text>
+                </Text>
+              </Flex>
+            </Box>
+
+            <Box w={80}>
+              <Text fontSize='lg' fontWeight={200} lineHeight='tall'>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
+                possimus temporibus non nemo repudiandae sed!
+              </Text>
+              <Button mt={8} colorScheme='orange' w='100%' h={14} rounded='0px'>
+                Book Now
+              </Button>
+            </Box>
+          </Flex>
+        </Container>
+        <Box>
+          <Image
+              h='80vh'
+              w='100vw'
+              objectFit='cover'
+              src={require(`../Assets/images/tours/${tour.imageCover}`).default}
+          />
+        </Box>
+        <Container maxW='4xl' my={32}>
+          <Box>
+            <Heading as='h3' fontSize='6xl' textAlign='center'>
               {tour.name}
             </Heading>
-
-            <Flex align='center' mt={20}>
-              <Text>
-                Rating:{' '}
-                <Text as='span' color='orange.500'>
-                  {tour.ratingsAverage}
-                </Text>
+            <Box mt={10}>
+              <Text
+                  fontWeight={200}
+                  lineHeight='tall'
+                  fontSize='lg'
+                  textAlign='center'
+              >
+                {tour.description}
               </Text>
-              <Text mx={14}>
-                Price from:{' '}
-                <Text as='span' color='orange.500'>
-                  ${tour.price}
-                </Text>
-              </Text>
-              <Text>
-                Start Date:{' '}
-                <Text as='span' color='orange.500'>
-                  {moment(tour?.startDates[0]).format('LL')}
-                </Text>
-              </Text>
-            </Flex>
+            </Box>
           </Box>
 
-          <Box w={80}>
-            <Text fontSize='lg' fontWeight={200} lineHeight='tall'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique
-              possimus temporibus non nemo repudiandae sed!
-            </Text>
-            <Button mt={8} colorScheme='orange' w='100%' h={14} rounded='0px'>
-              Book Now
-            </Button>
-          </Box>
-        </Flex>
-      </Container>
-      <Box>
-        <Image
-          h='80vh'
-          w='100vw'
-          objectFit='cover'
-          src={require(`../Assets/images/tours/${tour.imageCover}`).default}
-        />
-      </Box>
-      <Container maxW='4xl' my={32}>
-        <Box>
-          <Heading as='h3' fontSize='6xl' textAlign='center'>
-            {tour.name}
-          </Heading>
-          <Box mt={10}>
-            <Text
-              fontWeight={200}
-              lineHeight='tall'
-              fontSize='lg'
-              textAlign='center'
+          <Box my={20}>
+            <Grid
+                templateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }}
+                gap={{ base: 4, md: 10 }}
             >
-              {tour.description}
-            </Text>
+              <IconBox icon={Calendar} title='Availability' text='All-year' />
+              <IconBox
+                  icon={Duration}
+                  title='Duration'
+                  text={`${tour.duration} day tour`}
+              />
+              <IconBox
+                  icon={Point}
+                  title='Meeting Point'
+                  text={tour.startLocation.description}
+              />
+              <IconBox
+                  icon={Map}
+                  title='Location'
+                  text={tour.startLocation.address}
+              />
+              <IconBox icon={Easy} title='Difficulty' text={tour.difficulty} />
+              <IconBox
+                  icon={Group}
+                  title='Group Size'
+                  text={`Up to ${tour.maxGroupSize} group size`}
+              />
+            </Grid>
           </Box>
-        </Box>
 
-        <Box my={20}>
-          <Grid templateColumns={{ md: 'repeat(3, 1fr)' }} gap={10}>
-            <IconBox icon={Calendar} title='Availability' text='All-year' />
-            <IconBox
-              icon={Duration}
-              title='Duration'
-              text={`${tour.duration} day tour`}
-            />
-            <IconBox
-              icon={Point}
-              title='Meeting Point'
-              text={tour.startLocation.description}
-            />
-            <IconBox
-              icon={Map}
-              title='Location'
-              text={tour.startLocation.address}
-            />
-            <IconBox icon={Easy} title='Difficulty' text={tour.difficulty} />
-            <IconBox
-              icon={Group}
-              title='Group Size'
-              text={`Up to ${tour.maxGroupSize} group size`}
-            />
-          </Grid>
-        </Box>
+          <Box>
+            <Heading as='h4' fontSize={{ md: '4xl' }} textAlign='center' mb={14}>
+              Tour Gallery
+            </Heading>
+            <Grid templateColumns={{ md: 'repeat(4, 1fr)' }} gap={4}>
+              {tour.images.map((image) => (
+                  <Box h={108} w={{ md: 70 }}>
+                    <Image
+                        key={image}
+                        h='100%'
+                        w='100%'
+                        objectFit='cover'
+                        src={require(`../Assets/images/tours/${image}`).default}
+                    />
+                  </Box>
+              ))}
+            </Grid>
+          </Box>
 
-        <Box>
-          <Heading as='h4' fontSize={{ md: '4xl' }} textAlign='center' mb={14}>
-            Tour Gallery
-          </Heading>
-          <Grid templateColumns={{ md: 'repeat(4, 1fr)' }} gap={4}>
-            {tour.images.map((image) => (
-              <Box h={108} w={70}>
-                <Image
-                  key={image}
-                  h='100%'
-                  w='100%'
-                  objectFit='cover'
-                  src={require(`../Assets/images/tours/${image}`).default}
-                />
-              </Box>
-            ))}
-          </Grid>
-        </Box>
+          <Box mt={20}>
+            <Heading as='h4' fontSize='4xl' textAlign='center'>
+              Customer Reviews
+            </Heading>
 
-        <Box mt={20}>
-          <Heading as='h4' fontSize='4xl' textAlign='center'>
-            Customer Reviews
-          </Heading>
-
-          <Review />
-        </Box>
-      </Container>
-    </Layout>
+            <Review />
+          </Box>
+        </Container>
+      </Layout>
   );
 };
 
